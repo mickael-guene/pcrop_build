@@ -34,6 +34,7 @@ mkdir -p ${TOP}/build/mpc
 mkdir -p ${TOP}/build/binutils
 mkdir -p ${TOP}/build/gcc1
 mkdir -p ${TOP}/build/newlib
+mkdir -p ${TOP}/build/newlib-nano
 mkdir -p ${TOP}/build/gcc2
 mkdir ${TOP}/install
 mkdir ${TOP}/install/sysroot
@@ -133,6 +134,27 @@ PATH=${TOP}/install/bin:${PATH} make all -j${JOBNB}
 PATH=${TOP}/install/bin:${PATH} make install
 
 #######################################################################################################
+#newlib-nano
+cd ${TOP}/build/newlib-nano
+PATH=${TOP}/install/bin:${PATH} CFLAGS="$CFLAGS_TARGET" ${TOP}/scratch/newlib/configure \
+                                                            --prefix=${TOP}/build/newlib-nano/target-libs \
+                                                            --target=${TARGET} \
+                                                            --disable-newlib-supplied-syscalls \
+                                                            --disable-nls \
+                                                            --enable-newlib-reent-small           \
+                                                            --disable-newlib-fvwrite-in-streamio  \
+                                                            --disable-newlib-fseek-optimization   \
+                                                            --disable-newlib-wide-orient          \
+                                                            --enable-newlib-nano-malloc           \
+                                                            --disable-newlib-unbuf-stream-opt     \
+                                                            --enable-lite-exit                    \
+                                                            --enable-newlib-global-atexit         \
+                                                            --enable-newlib-nano-formatted-io
+
+PATH=${TOP}/install/bin:${PATH} make all -j${JOBNB}
+PATH=${TOP}/install/bin:${PATH} make install
+
+#######################################################################################################
 #gcc2
 cd ${TOP}/build/gcc2
 #building internal gcc lib require to find include files in sysroot/target/usr/include
@@ -167,6 +189,15 @@ make all -j${JOBNB}
 make install
 #remove tmp link
 rm -f ${TOP}/install/${TARGET}/usr
+
+#######################################################################################################
+#copy newlib-nano libraries
+cp ${TOP}/build/newlib-nano/target-libs/${TARGET}/lib/libc.a ${TOP}/install/${TARGET}/lib/libc_nano.a
+cp ${TOP}/build/newlib-nano/target-libs/${TARGET}/lib/libg.a ${TOP}/install/${TARGET}/lib/libg_nano.a
+cp ${TOP}/build/newlib-nano/target-libs/${TARGET}/lib/librdimon.a ${TOP}/install/${TARGET}/lib/librdimon_nano.a
+#FIXME : rebuild these ones with reduce size ???
+cp ${TOP}/install/${TARGET}/lib/libstdc++.a ${TOP}/install/${TARGET}/lib/libstdc++_nano.a
+cp ${TOP}/install/${TARGET}/lib/libsupc++.a ${TOP}/install/${TARGET}/lib/libsupc++_nano.a
 
 #######################################################################################################
 #generate tarball
