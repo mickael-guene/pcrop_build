@@ -42,7 +42,7 @@ mkdir ${TOP}/out
 #compilation options
 if [ ! "$DEBUG" ] ; then
     CFLAGS_TOOLSET='-O2'
-    CFLAGS_TARGET='-Os'
+    CFLAGS_TARGET='-Os -ffunction-sections -fdata-sections'
 else
     CFLAGS_TOOLSET='-O0 -g'
     CFLAGS_TARGET='-O0 -g'
@@ -121,7 +121,7 @@ make install
 #######################################################################################################
 #newlib
 cd ${TOP}/build/newlib
-PATH=${TOP}/install/bin:${PATH} ${TOP}/scratch/newlib/configure \
+PATH=${TOP}/install/bin:${PATH} CFLAGS="$CFLAGS_TARGET" ${TOP}/scratch/newlib/configure \
                                                             --prefix=${TOP}/install \
                                                             --target=${TARGET} \
                                                             --enable-newlib-io-long-long \
