@@ -7,6 +7,9 @@ SCRIPTDIR=`(cd $SCRIPTDIR ; pwd)`
 TOP=`pwd`
 isDelivery=`echo $1 | grep delivery` || true
 
+# define bug url
+BUGURL="https://github.com/mickael-guene/pcrop_manifest/issues"
+
 # define version
 cd ${TOP}/.repo/manifests
 VERSION=`git describe --always --dirty --tags --long --abbrev=8 2>/dev/null`
@@ -59,7 +62,7 @@ CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/binutils/configure    --target=${TARGET} \
                                                             --disable-nls \
                                                             --with-sysroot=${TOP}/install/sysroot \
                                                             --with-pkgversion="${VERSION_MSG}" \
-                                                            --without-bugurl \
+                                                            --with-bugurl="${BUGURL}" \
                                                             --disable-werror
 make all -j${JOBNB}
 make install
@@ -184,7 +187,7 @@ CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFL
                                                             --without-ppl \
                                                             --disable-nls \
                                                             --with-pkgversion="${VERSION_MSG}" \
-                                                            --without-bugurl
+                                                            ---with-bugurl="${BUGURL}"
 
 make all -j${JOBNB}
 make install
