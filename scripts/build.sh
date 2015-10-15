@@ -5,6 +5,7 @@ SCRIPTDIR=`dirname $0`
 SCRIPTDIR=`(cd $SCRIPTDIR ; pwd)`
 #get working directory
 TOP=`pwd`
+isDelivery=`echo $1 | grep delivery` || true
 
 # define version
 cd ${TOP}/.repo/manifests
