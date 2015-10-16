@@ -187,7 +187,7 @@ CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFL
                                                             --without-ppl \
                                                             --disable-nls \
                                                             --with-pkgversion="${VERSION_MSG}" \
-                                                            ---with-bugurl="${BUGURL}"
+                                                            --with-bugurl="${BUGURL}"
 
 make all -j${JOBNB}
 make install
