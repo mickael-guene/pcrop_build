@@ -14,7 +14,7 @@ def create_release(owner, repo, tag_name):
 
 
 def upload_asset(upload_url, asset_filename):
-    cmd = ["curl", "-H", "Authorization: token %s" % TOKEN, "-H", "Accept: application/vnd.github.v3+json",
+    cmd = ["curl", "--insecure", "-H", "Authorization: token %s" % TOKEN, "-H", "Accept: application/vnd.github.v3+json",
            "-H", "Content-Type: application/x-compressed", "--data-binary", "@%s" % asset_filename, upload_url]
     subprocess.call(cmd)
 
