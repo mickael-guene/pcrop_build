@@ -22,6 +22,9 @@ VERSION_MSG="$VERSION build on "`uname -n`" by "`whoami`
 # define target name
 TARGET="arm-none-eabi"
 
+# define default architecture
+ARCH=armv7-m
+
 # default value for JOBNB
 if [ ! "$JOBNB" ] ; then
     JOBNB=1
@@ -114,7 +117,7 @@ CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFL
                                                             --enable-languages=c \
                                                             --disable-libquadmath \
                                                             --disable-multilib \
-                                                            --with-arch=armv6s-m \
+                                                            --with-arch=${ARCH} \
                                                             --with-mode=thumb \
                                                             --without-cloog \
                                                             --without-ppl \
@@ -181,7 +184,7 @@ CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFL
                                                             --disable-multilib \
                                                             --disable-libstdcxx-pch \
                                                             --disable-threads \
-                                                            --with-arch=armv6s-m \
+                                                            --with-arch=${ARCH} \
                                                             --with-mode=thumb \
                                                             --without-cloog \
                                                             --without-ppl \
@@ -211,8 +214,8 @@ if [ "$STRIP" ] ; then
     tar -C install --atime-preserve -cf - . | tar --atime-preserve -xf - -C $WDIR
     find $WDIR -type f -perm /111 -exec strip -p {} \; > /dev/null 2>&1
     #find $WDIR -exec install/bin/${TARGET}-strip -p {} \; > /dev/null 2>&1
-    tar -C $WDIR --atime-preserve -czf out/toolset-${VERSION}-armv6s-m.tgz .
+    tar -C $WDIR --atime-preserve -czf out/toolset-${VERSION}-${ARCH}.tgz .
 else
-    tar -C install --atime-preserve -czf out/toolset-${VERSION}-armv6s-m.tgz .
+    tar -C install --atime-preserve -czf out/toolset-${VERSION}-${ARCH}.tgz .
 fi
 
