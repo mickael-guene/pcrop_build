@@ -50,7 +50,7 @@ mkdir ${TOP}/out
 #compilation options
 if [ ! "$DEBUG" ] ; then
     CFLAGS_TOOLSET='-O2'
-    CFLAGS_TARGET='-Os -ffunction-sections -fdata-sections'
+    CFLAGS_TARGET='-Os -ffunction-sections'
 else
     CFLAGS_TOOLSET='-O0 -g'
     CFLAGS_TARGET='-O0 -g'
