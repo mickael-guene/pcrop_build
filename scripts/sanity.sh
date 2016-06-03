@@ -7,8 +7,8 @@ SCRIPTDIR=`(cd $SCRIPTDIR ; pwd)`
 TOP=`pwd`
 
 #temporary directory
-#WDIR=`mktemp -d` && trap "rm -Rf $WDIR" EXIT
-WDIR=`mktemp -d`
+WDIR=`mktemp -d` && trap "rm -Rf $WDIR" EXIT
+#WDIR=`mktemp -d`
 
 #untar toolset and runtime
 cd ${WDIR}
