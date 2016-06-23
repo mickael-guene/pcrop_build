@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh -ex
 
 #get script location
 SCRIPTDIR=`dirname $0`
