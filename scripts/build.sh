@@ -7,9 +7,6 @@ SCRIPTDIR=`(cd $SCRIPTDIR ; pwd)`
 TOP=`pwd`
 isDelivery=`echo $1 | grep delivery` || true
 
-#include configuration
-. ${TOP}/scratch/variant/variant.sh
-
 # define bug url
 BUGURL="https://github.com/mickael-guene/pcrop_manifest/issues"
 
@@ -116,8 +113,7 @@ CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFL
                                                             --disable-libmudflap \
                                                             --enable-languages=c \
                                                             --disable-libquadmath \
-                                                            --disable-multilib \
-                                                            --with-arch=${ARCH} \
+                                                            --with-arch=armv6s-m \
                                                             --with-mode=thumb \
                                                             --without-cloog \
                                                             --without-ppl \
@@ -181,10 +177,9 @@ CFLAGS=$CFLAGS_TOOLSET CFLAGS_FOR_TARGET=$CFLAGS_TARGET CXXFLAGS_FOR_TARGET=$CFL
                                                             --disable-libmudflap \
                                                             --enable-languages=c,c++ \
                                                             --disable-libquadmath \
-                                                            --disable-multilib \
                                                             --disable-libstdcxx-pch \
                                                             --disable-threads \
-                                                            --with-arch=${ARCH} \
+                                                            --with-arch=armv6s-m \
                                                             --with-mode=thumb \
                                                             --without-cloog \
                                                             --without-ppl \
@@ -202,9 +197,15 @@ rm -f ${TOP}/install/${TARGET}/usr
 cp ${TOP}/build/newlib-nano/target-libs/${TARGET}/lib/libc.a ${TOP}/install/${TARGET}/lib/libc_nano.a
 cp ${TOP}/build/newlib-nano/target-libs/${TARGET}/lib/libg.a ${TOP}/install/${TARGET}/lib/libg_nano.a
 cp ${TOP}/build/newlib-nano/target-libs/${TARGET}/lib/librdimon.a ${TOP}/install/${TARGET}/lib/librdimon_nano.a
+cp ${TOP}/build/newlib-nano/target-libs/${TARGET}/lib/armv7-m/libc.a ${TOP}/install/${TARGET}/lib/armv7-m/libc_nano.a
+cp ${TOP}/build/newlib-nano/target-libs/${TARGET}/lib/armv7-m/libg.a ${TOP}/install/${TARGET}/lib/armv7-m/libg_nano.a
+cp ${TOP}/build/newlib-nano/target-libs/${TARGET}/lib/armv7-m/librdimon.a ${TOP}/install/${TARGET}/lib/armv7-m/librdimon_nano.a
+
 #FIXME : rebuild these ones with reduce size ???
 cp ${TOP}/install/${TARGET}/lib/libstdc++.a ${TOP}/install/${TARGET}/lib/libstdc++_nano.a
 cp ${TOP}/install/${TARGET}/lib/libsupc++.a ${TOP}/install/${TARGET}/lib/libsupc++_nano.a
+cp ${TOP}/install/${TARGET}/lib/armv7-m/libstdc++.a ${TOP}/install/${TARGET}/lib/armv7-m/libstdc++_nano.a
+cp ${TOP}/install/${TARGET}/lib/armv7-m/libsupc++.a ${TOP}/install/${TARGET}/lib/armv7-m/libsupc++_nano.a
 
 #######################################################################################################
 #generate tarball

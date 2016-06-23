@@ -27,9 +27,12 @@ int main(int argc, char **argv)
 }
 EOF
 
-#build it
+#build and run it
 ./bin/arm-none-eabi-gcc -mexecute-only --specs=rdimon.specs -Wl,--script=ld_scripts/umeq.ld test.c -o test
-
-#run it
 ./bin/umeq-arm ./test
-
+./bin/arm-none-eabi-gcc -mexecute-only --specs=rdimon.specs -Wl,--script=ld_scripts/umeq.ld test.c -o test -march=armv7-m
+./bin/umeq-arm ./test
+./bin/arm-none-eabi-gcc -mexecute-only --specs=nano.specs --specs=rdimon.specs -Wl,--script=ld_scripts/umeq.ld test.c -o test
+./bin/umeq-arm ./test
+./bin/arm-none-eabi-gcc -mexecute-only --specs=nano.specs --specs=rdimon.specs -Wl,--script=ld_scripts/umeq.ld test.c -o test -march=armv7-m
+./bin/umeq-arm ./test
