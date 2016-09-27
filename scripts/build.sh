@@ -72,7 +72,8 @@ make install
 cd ${TOP}/build/gmp
 CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/gmp/configure         --prefix=${TOP}/install_host \
                                                             --enable-cxx \
-                                                            --disable-shared
+                                                            --disable-shared \
+                                                            gmp_cv_asm_x86_mulx=no
 make all -j${JOBNB}
 make install
 
