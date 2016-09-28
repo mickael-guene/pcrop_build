@@ -69,11 +69,13 @@ make install
 
 #######################################################################################################
 #gmp
+#NOTE : using disable-assembly allow portable code at runtime. Another solution is to use
+# --enable-fat with make detection at runtime
 cd ${TOP}/build/gmp
 CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/gmp/configure         --prefix=${TOP}/install_host \
                                                             --enable-cxx \
                                                             --disable-shared \
-                                                            gmp_cv_asm_x86_mulx=no
+                                                            --disable-assembly
 make all -j${JOBNB}
 make install
 
