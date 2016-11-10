@@ -63,7 +63,8 @@ CFLAGS=$CFLAGS_TOOLSET ${TOP}/scratch/binutils/configure    --target=${TARGET} \
                                                             --with-sysroot=${TOP}/install/sysroot \
                                                             --with-pkgversion="${VERSION_MSG}" \
                                                             --with-bugurl="${BUGURL}" \
-                                                            --disable-werror
+                                                            --disable-werror \
+                                                            --disable-gdb
 make all -j${JOBNB}
 make install
 
